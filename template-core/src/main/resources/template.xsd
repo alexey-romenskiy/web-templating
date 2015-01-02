@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ template
+  ~ Copyright (c) 2015, Alexey Romenskiy, All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3.0 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library.
+  -->
+
+<xs:schema xmlns="http://writeonce.codes/xsd/web-templating/1.0/template"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xml:lang="en"
+           version="1.0"
+           targetNamespace="http://writeonce.codes/xsd/web-templating/1.0/template"
+           elementFormDefault="qualified">
+
+    <xs:element name="templates">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="template" type="Template"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Fragment" mixed="true">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="accept" type="Accept"/>
+            <xs:element name="choose" type="Choose"/>
+            <xs:element name="if" type="If"/>
+            <xs:element name="unless" type="Unless"/>
+            <xs:element name="foreach" type="Foreach"/>
+            <xs:element name="out" type="Out"/>
+            <xs:element name="text" type="Text"/>
+            <xs:element name="apply" type="Apply"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Template">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="name" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Text">
+        <xs:complexContent>
+            <xs:extension base="Fragment"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Otherwise">
+        <xs:complexContent>
+            <xs:extension base="Fragment"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="When">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="value" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Visit">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="type" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Foreach">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="name" type="xs:string" use="required"/>
+                <xs:attribute name="value" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="If">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="value" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Unless">
+        <xs:complexContent>
+            <xs:extension base="Fragment">
+                <xs:attribute name="value" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Out">
+        <xs:attribute name="value" type="xs:string" use="required"/>
+        <xs:attribute name="format" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="Apply">
+        <xs:sequence>
+            <xs:element name="param" type="Param" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Param">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Choose">
+        <xs:sequence>
+            <xs:element name="when" type="When" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="otherwise" type="Otherwise" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Accept">
+        <xs:sequence>
+            <xs:element name="visit" type="Visit" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

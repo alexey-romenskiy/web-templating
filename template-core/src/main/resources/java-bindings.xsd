@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ template
+  ~ Copyright (c) 2015, Alexey Romenskiy, All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3.0 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library.
+  -->
+
+<xs:schema xmlns="http://writeonce.codes/xsd/web-templating/1.0/java-bindings"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xml:lang="en"
+           version="1.0"
+           targetNamespace="http://writeonce.codes/xsd/web-templating/1.0/java-bindings"
+           elementFormDefault="qualified">
+
+    <xs:element name="metamodel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="types" type="Types"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Types">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="object" type="Object"/>
+            <xs:element name="primitive" type="Primitive"/>
+            <xs:element name="bean" type="Bean"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Type">
+        <xs:sequence>
+            <xs:element name="formatters" type="Formatters" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Object">
+        <xs:complexContent>
+            <xs:restriction base="Type">
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="\w+(\.\w+)*"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Primitive">
+        <xs:complexContent>
+            <xs:restriction base="Type">
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="boolean"/>
+                            <xs:enumeration value="byte"/>
+                            <xs:enumeration value="short"/>
+                            <xs:enumeration value="char"/>
+                            <xs:enumeration value="int"/>
+                            <xs:enumeration value="long"/>
+                            <xs:enumeration value="float"/>
+                            <xs:enumeration value="double"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Bean">
+        <xs:complexContent>
+            <xs:restriction base="Type">
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="\w+(\.\w+)*"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Formatter">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Formatters">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="formatter" type="Formatter"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

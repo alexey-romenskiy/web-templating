@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ template
+  ~ Copyright (c) 2015, Alexey Romenskiy, All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3.0 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library.
+  -->
+
+<xs:schema xmlns="http://writeonce.codes/xsd/web-templating/1.0/metamodel"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xml:lang="en"
+           version="1.0"
+           targetNamespace="http://writeonce.codes/xsd/web-templating/1.0/metamodel"
+           elementFormDefault="qualified">
+
+    <xs:element name="metamodel">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="template" type="Template"/>
+                <xs:element name="type" type="Type"/>
+                <xs:element name="object" type="Object"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Template">
+        <xs:sequence>
+            <xs:element name="param" type="Param" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="extends" type="xs:string"/>
+        <xs:attribute name="abstract" type="xs:boolean" default="false"/>
+    </xs:complexType>
+
+    <xs:complexType name="Type">
+        <xs:sequence>
+            <xs:element name="formatters" type="Formatters" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Object">
+        <xs:complexContent>
+            <xs:extension base="Type">
+                <xs:sequence>
+                    <xs:element name="attributes" type="Attributes" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="extends" type="xs:string"/>
+                <xs:attribute name="abstract" type="xs:boolean" default="false"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Attributes">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="scalar" type="Scalar"/>
+            <xs:element name="vector" type="Vector"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Scalar">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Vector">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Param">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Formatter">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Formatters">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="formatter" type="Formatter"/>
+        </xs:sequence>
+        <xs:attribute name="default" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ template
+  ~ Copyright (c) 2015, Alexey Romenskiy, All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3.0 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library.
+  -->
+
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://writeonce.codes/xsd/web-templating/1.0/template"
+           xsi:schemaLocation="http://writeonce.codes/xsd/web-templating/1.0/template http://writeonce.codes/xsd/web-templating/1.0/template.xsd">
+    <template name="">
+        <accept value="">
+            <visit type="">sdg</visit>
+        </accept>
+        <choose value="">
+            <when value="">sg</when>
+            <otherwise>sg</otherwise>
+        </choose>
+        <if value="">
+
+        </if>
+        <unless value="">
+
+        </unless>
+        <foreach name="" value="">
+
+        </foreach>
+        <out value="" format=""/>
+        <text>asf</text>
+        <apply name="">
+            <param name="" value=""/>
+        </apply>
+    </template>
+</templates>
