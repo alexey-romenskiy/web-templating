@@ -21,7 +21,6 @@ package codes.writeonce.web.template;
 public class ExecutionScope {
 
     public final boolean[] booleans;
-
     public final byte[] bytes;
     public final short[] shorts;
     public final char[] chars;
@@ -30,8 +29,6 @@ public class ExecutionScope {
     public final float[] floats;
     public final double[] doubles;
     public final Object[] objects;
-
-    public ExecutionScope previousScope;
 
     public ExecutionScope(int booleansCount, int bytesCount, int shortsCount, char charsCount, int intsCount,
             int longsCount, int floatsCount, int doublesCount, int objectsCount) {

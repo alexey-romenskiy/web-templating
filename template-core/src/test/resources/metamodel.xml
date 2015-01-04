@@ -25,7 +25,10 @@
         <param name="" type="A"/>
     </template>
     <template name="qwe" extends="foo">
-        <param name="" type="A"/>
+        <param name="" type="fragment"/>
+    </template>
+    <template name="qwe" extends="foo">
+        <param name="" type="boolean"/>
     </template>
     <type name="X">
         <formatters default="">

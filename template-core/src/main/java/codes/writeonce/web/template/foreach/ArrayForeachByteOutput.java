@@ -16,32 +16,26 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
 
-import java.nio.ByteBuffer;
+import codes.writeonce.web.template.ExecutionScope;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
-public class ForeachOutput implements Output {
+import java.io.IOException;
 
-    private final ExecutionContext context;
-    private final Output output;
+public class ArrayForeachByteOutput extends AbstractArrayForeachOutput {
 
-    public ForeachOutput(ExecutionContext context, Output output) {
-        this.context = context;
-        this.output = output;
+    public ArrayForeachByteOutput(int fromIndex, ObjectEvaluator[] evaluators, int toIndex, Output output) {
+        super(fromIndex, evaluators, toIndex, output);
     }
 
     @Override
-    public int write(ByteBuffer out) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasMore() {
-        return false;
-    }
-
-    @Override
-    public void reset() {
-
+    protected void iterate(ExecutionScope scope, Appendable out, Object value) throws IOException {
+        final byte[] bytes = (byte[]) value;
+        for (final byte b : bytes) {
+            scope.bytes[toIndex] = b;
+            output.write(scope, out);
+        }
     }
 }

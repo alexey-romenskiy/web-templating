@@ -20,18 +20,23 @@ package codes.writeonce.web.template.accessor;
 
 import codes.writeonce.web.template.ExecutionScope;
 
-public class DoubleAccessor implements Accessor {
+public class DoubleArgumentAccessor implements ArgumentAccessor {
 
     private final int fromIndex;
     private final int toIndex;
 
-    public DoubleAccessor(int fromIndex, int toIndex) {
+    public DoubleArgumentAccessor(int fromIndex, int toIndex) {
         this.fromIndex = fromIndex;
         this.toIndex = toIndex;
     }
 
     @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
+    public void init(ExecutionScope fromScope, ExecutionScope toScope) {
         toScope.doubles[toIndex] = fromScope.doubles[fromIndex];
+    }
+
+    @Override
+    public void reset(ExecutionScope fromScope, ExecutionScope toScope) {
+        // empty
     }
 }

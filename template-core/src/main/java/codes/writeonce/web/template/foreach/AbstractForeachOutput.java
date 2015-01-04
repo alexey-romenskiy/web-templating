@@ -16,20 +16,32 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
+
+import codes.writeonce.web.template.ExecutionScope;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
 import java.io.IOException;
 
-public class TextOutput implements Output {
+public abstract class AbstractForeachOutput implements Output {
 
-    private final String text;
+    private final int fromIndex;
+    private final ObjectEvaluator[] evaluators;
 
-    public TextOutput(String text) {
-        this.text = text;
+    public AbstractForeachOutput(int fromIndex, ObjectEvaluator[] evaluators) {
+        this.fromIndex = fromIndex;
+        this.evaluators = evaluators;
     }
 
     @Override
     public void write(ExecutionScope scope, Appendable out) throws IOException {
-        out.append(text);
+        Object value = scope.objects[fromIndex];
+        for (final ObjectEvaluator evaluator : evaluators) {
+            value = evaluator.evaluate(value);
+        }
+        iterate(scope, out, value);
     }
+
+    protected abstract void iterate(ExecutionScope scope, Appendable out, Object value) throws IOException;
 }

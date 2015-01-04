@@ -16,20 +16,19 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
 
-import java.io.IOException;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
-public class TextOutput implements Output {
+public abstract class AbstractArrayForeachOutput extends AbstractForeachOutput {
 
-    private final String text;
+    protected final int toIndex;
+    protected final Output output;
 
-    public TextOutput(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        out.append(text);
+    public AbstractArrayForeachOutput(int fromIndex, ObjectEvaluator[] evaluators, int toIndex, Output output) {
+        super(fromIndex, evaluators);
+        this.toIndex = toIndex;
+        this.output = output;
     }
 }

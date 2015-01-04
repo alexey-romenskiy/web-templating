@@ -18,35 +18,24 @@
 
 package codes.writeonce.web.template;
 
-import codes.writeonce.web.template.accessor.ArgumentAccessor;
-
 import java.io.IOException;
 
-public class ApplyOutput implements Output {
+public class FragmentOutput implements Output {
 
-    private final Pool<ExecutionScope> scopePool;
-    private final ArgumentAccessor[] argumentAccessors;
     private final Output output;
 
-    public ApplyOutput(Pool<ExecutionScope> scopePool, ArgumentAccessor[] argumentAccessors, Output output) {
-        this.scopePool = scopePool;
-        this.argumentAccessors = argumentAccessors;
+    private ExecutionScope scope;
+
+    public FragmentOutput(Output output) {
         this.output = output;
+    }
+
+    public void setScope(ExecutionScope scope) {
+        this.scope = scope;
     }
 
     @Override
     public void write(ExecutionScope scope, Appendable out) throws IOException {
-        final ExecutionScope nextScope = scopePool.claim();
-        try {
-            for (final ArgumentAccessor argumentAccessor : argumentAccessors) {
-                argumentAccessor.init(scope, nextScope);
-            }
-            output.write(nextScope, out);
-        } finally {
-            for (final ArgumentAccessor argumentAccessor : argumentAccessors) {
-                argumentAccessor.reset(scope, nextScope);
-            }
-            scopePool.reclaim(nextScope);
-        }
+        output.write(this.scope, out);
     }
 }

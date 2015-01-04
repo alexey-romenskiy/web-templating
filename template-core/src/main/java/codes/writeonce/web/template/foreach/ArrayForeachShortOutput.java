@@ -16,21 +16,25 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
+
+import codes.writeonce.web.template.ExecutionScope;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
 import java.io.IOException;
 
-public class SequenceOutput implements Output {
+public class ArrayForeachShortOutput extends AbstractArrayForeachOutput {
 
-    private final Output[] sequence;
-
-    public SequenceOutput(Output[] sequence) {
-        this.sequence = sequence;
+    public ArrayForeachShortOutput(int fromIndex, ObjectEvaluator[] evaluators, int toIndex, Output output) {
+        super(fromIndex, evaluators, toIndex, output);
     }
 
     @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        for (final Output output : sequence) {
+    protected void iterate(ExecutionScope scope, Appendable out, Object value) throws IOException {
+        final short[] shorts = (short[]) value;
+        for (final short i : shorts) {
+            scope.shorts[toIndex] = i;
             output.write(scope, out);
         }
     }

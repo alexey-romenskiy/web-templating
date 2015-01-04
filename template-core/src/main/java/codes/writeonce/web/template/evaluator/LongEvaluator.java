@@ -16,22 +16,9 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.accessor;
+package codes.writeonce.web.template.evaluator;
 
-import codes.writeonce.web.template.ExecutionScope;
+public interface LongEvaluator {
 
-public class LongAccessor implements Accessor {
-
-    private final int fromIndex;
-    private final int toIndex;
-
-    public LongAccessor(int fromIndex, int toIndex) {
-        this.fromIndex = fromIndex;
-        this.toIndex = toIndex;
-    }
-
-    @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.longs[toIndex] = fromScope.longs[fromIndex];
-    }
+    long evaluate(Object value);
 }

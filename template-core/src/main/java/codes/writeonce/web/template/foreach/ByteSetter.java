@@ -16,22 +16,20 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.accessor;
+package codes.writeonce.web.template.foreach;
 
 import codes.writeonce.web.template.ExecutionScope;
 
-public class ByteAccessor implements Accessor {
+public class ByteSetter implements Setter {
 
-    private final int fromIndex;
     private final int toIndex;
 
-    public ByteAccessor(int fromIndex, int toIndex) {
-        this.fromIndex = fromIndex;
+    public ByteSetter(int toIndex) {
         this.toIndex = toIndex;
     }
 
     @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.bytes[toIndex] = fromScope.bytes[fromIndex];
+    public void set(ExecutionScope scope, Object value) {
+        scope.bytes[toIndex] = (byte) value;
     }
 }

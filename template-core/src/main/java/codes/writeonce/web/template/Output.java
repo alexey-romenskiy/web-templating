@@ -18,11 +18,9 @@
 
 package codes.writeonce.web.template;
 
-import java.nio.ByteBuffer;
+import java.io.IOException;
 
-public interface Output extends Reusable {
+public interface Output {
 
-    int write(ByteBuffer out);
-
-    boolean hasMore();
+    void write(ExecutionScope scope, Appendable out) throws IOException;
 }

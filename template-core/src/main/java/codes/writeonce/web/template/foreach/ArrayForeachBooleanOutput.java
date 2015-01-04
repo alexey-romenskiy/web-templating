@@ -16,22 +16,26 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.accessor;
+package codes.writeonce.web.template.foreach;
 
 import codes.writeonce.web.template.ExecutionScope;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
-public class ObjectAccessor implements Accessor {
+import java.io.IOException;
 
-    private final int fromIndex;
-    private final int toIndex;
+public class ArrayForeachBooleanOutput extends AbstractArrayForeachOutput {
 
-    public ObjectAccessor(int fromIndex, int toIndex) {
-        this.fromIndex = fromIndex;
-        this.toIndex = toIndex;
+    public ArrayForeachBooleanOutput(int fromIndex, ObjectEvaluator[] evaluators, int toIndex, Output output) {
+        super(fromIndex, evaluators, toIndex, output);
     }
 
     @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.objects[toIndex] = fromScope.objects[fromIndex];
+    protected void iterate(ExecutionScope scope, Appendable out, Object value) throws IOException {
+        final boolean[] booleans = (boolean[]) value;
+        for (final boolean b : booleans) {
+            scope.booleans[toIndex] = b;
+            output.write(scope, out);
+        }
     }
 }

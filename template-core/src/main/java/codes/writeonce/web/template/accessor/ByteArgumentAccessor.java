@@ -20,18 +20,23 @@ package codes.writeonce.web.template.accessor;
 
 import codes.writeonce.web.template.ExecutionScope;
 
-public class FloatAccessor implements Accessor {
+public class ByteArgumentAccessor implements ArgumentAccessor {
 
     private final int fromIndex;
     private final int toIndex;
 
-    public FloatAccessor(int fromIndex, int toIndex) {
+    public ByteArgumentAccessor(int fromIndex, int toIndex) {
         this.fromIndex = fromIndex;
         this.toIndex = toIndex;
     }
 
     @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.floats[toIndex] = fromScope.floats[fromIndex];
+    public void init(ExecutionScope fromScope, ExecutionScope toScope) {
+        toScope.bytes[toIndex] = fromScope.bytes[fromIndex];
+    }
+
+    @Override
+    public void reset(ExecutionScope fromScope, ExecutionScope toScope) {
+        // empty
     }
 }

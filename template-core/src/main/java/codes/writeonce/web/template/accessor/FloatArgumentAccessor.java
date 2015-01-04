@@ -16,20 +16,27 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.accessor;
 
-import java.io.IOException;
+import codes.writeonce.web.template.ExecutionScope;
 
-public class TextOutput implements Output {
+public class FloatArgumentAccessor implements ArgumentAccessor {
 
-    private final String text;
+    private final int fromIndex;
+    private final int toIndex;
 
-    public TextOutput(String text) {
-        this.text = text;
+    public FloatArgumentAccessor(int fromIndex, int toIndex) {
+        this.fromIndex = fromIndex;
+        this.toIndex = toIndex;
     }
 
     @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        out.append(text);
+    public void init(ExecutionScope fromScope, ExecutionScope toScope) {
+        toScope.floats[toIndex] = fromScope.floats[fromIndex];
+    }
+
+    @Override
+    public void reset(ExecutionScope fromScope, ExecutionScope toScope) {
+        // empty
     }
 }

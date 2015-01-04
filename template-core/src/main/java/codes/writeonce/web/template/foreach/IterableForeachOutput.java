@@ -16,21 +16,30 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
+
+import codes.writeonce.web.template.ExecutionScope;
+import codes.writeonce.web.template.Output;
+import codes.writeonce.web.template.evaluator.ObjectEvaluator;
 
 import java.io.IOException;
 
-public class SequenceOutput implements Output {
+public class IterableForeachOutput extends AbstractForeachOutput {
 
-    private final Output[] sequence;
+    private final Setter setter;
+    private final Output output;
 
-    public SequenceOutput(Output[] sequence) {
-        this.sequence = sequence;
+    public IterableForeachOutput(int fromIndex, ObjectEvaluator[] evaluators, Setter setter, Output output) {
+        super(fromIndex, evaluators);
+        this.setter = setter;
+        this.output = output;
     }
 
     @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        for (final Output output : sequence) {
+    protected void iterate(ExecutionScope scope, Appendable out, Object value) throws IOException {
+        final Iterable iterable = (Iterable) value;
+        for (final Object element : iterable) {
+            setter.set(scope, element);
             output.write(scope, out);
         }
     }

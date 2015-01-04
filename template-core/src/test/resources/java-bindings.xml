@@ -23,7 +23,14 @@
     <types>
         <object name="Text" type="java.lang.String"/>
         <primitive name="Number" type="int"/>
-        <bean name="" type="com.example.Test"/>
+        <bean name="" type="com.example.Test">
+            <vectors>
+                <array name="foo"/>
+                <iterable name="foo"/>
+                <iterator name="foo"/>
+                <enumeration name="foo"/>
+            </vectors>
+        </bean>
     </types>
 
 </metamodel>

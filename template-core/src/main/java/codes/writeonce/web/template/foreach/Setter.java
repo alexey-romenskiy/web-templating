@@ -16,20 +16,11 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
 
-import java.io.IOException;
+import codes.writeonce.web.template.ExecutionScope;
 
-public class TextOutput implements Output {
+public interface Setter {
 
-    private final String text;
-
-    public TextOutput(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        out.append(text);
-    }
+    void set(ExecutionScope scope, Object value);
 }

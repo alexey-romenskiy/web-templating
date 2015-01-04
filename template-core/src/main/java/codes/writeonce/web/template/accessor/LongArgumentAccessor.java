@@ -16,9 +16,27 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.evaluator;
+package codes.writeonce.web.template.accessor;
 
-public interface Evaluator {
+import codes.writeonce.web.template.ExecutionScope;
 
-    Object evaluate(Object bean);
+public class LongArgumentAccessor implements ArgumentAccessor {
+
+    private final int fromIndex;
+    private final int toIndex;
+
+    public LongArgumentAccessor(int fromIndex, int toIndex) {
+        this.fromIndex = fromIndex;
+        this.toIndex = toIndex;
+    }
+
+    @Override
+    public void init(ExecutionScope fromScope, ExecutionScope toScope) {
+        toScope.longs[toIndex] = fromScope.longs[fromIndex];
+    }
+
+    @Override
+    public void reset(ExecutionScope fromScope, ExecutionScope toScope) {
+        // empty
+    }
 }

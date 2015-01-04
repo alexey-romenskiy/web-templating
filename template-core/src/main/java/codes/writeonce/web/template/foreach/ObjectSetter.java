@@ -16,22 +16,20 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.accessor;
+package codes.writeonce.web.template.foreach;
 
 import codes.writeonce.web.template.ExecutionScope;
 
-public class BooleanAccessor implements Accessor {
+public class ObjectSetter implements Setter {
 
-    private final int fromIndex;
     private final int toIndex;
 
-    public BooleanAccessor(int fromIndex, int toIndex) {
-        this.fromIndex = fromIndex;
+    public ObjectSetter(int toIndex) {
         this.toIndex = toIndex;
     }
 
     @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.booleans[toIndex] = fromScope.booleans[fromIndex];
+    public void set(ExecutionScope scope, Object value) {
+        scope.objects[toIndex] = value;
     }
 }

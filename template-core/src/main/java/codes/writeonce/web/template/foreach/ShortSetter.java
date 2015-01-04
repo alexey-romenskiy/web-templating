@@ -16,9 +16,20 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.foreach;
 
-public class ExecutionContext {
+import codes.writeonce.web.template.ExecutionScope;
 
-    public ExecutionScope currentScope;
+public class ShortSetter implements Setter {
+
+    private final int toIndex;
+
+    public ShortSetter(int toIndex) {
+        this.toIndex = toIndex;
+    }
+
+    @Override
+    public void set(ExecutionScope scope, Object value) {
+        scope.shorts[toIndex] = (short) value;
+    }
 }

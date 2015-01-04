@@ -20,7 +20,23 @@ package codes.writeonce.web.template.accessor;
 
 import codes.writeonce.web.template.ExecutionScope;
 
-public interface Accessor {
+public class ObjectArgumentAccessor implements ArgumentAccessor {
 
-    void copy(ExecutionScope fromScope, ExecutionScope toScope);
+    private final int fromIndex;
+    private final int toIndex;
+
+    public ObjectArgumentAccessor(int fromIndex, int toIndex) {
+        this.fromIndex = fromIndex;
+        this.toIndex = toIndex;
+    }
+
+    @Override
+    public void init(ExecutionScope fromScope, ExecutionScope toScope) {
+        toScope.objects[toIndex] = fromScope.objects[fromIndex];
+    }
+
+    @Override
+    public void reset(ExecutionScope fromScope, ExecutionScope toScope) {
+        toScope.objects[toIndex] = null;
+    }
 }

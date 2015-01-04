@@ -16,22 +16,9 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template.accessor;
+package codes.writeonce.web.template.evaluator;
 
-import codes.writeonce.web.template.ExecutionScope;
+public interface ObjectEvaluator {
 
-public class ShortAccessor implements Accessor {
-
-    private final int fromIndex;
-    private final int toIndex;
-
-    public ShortAccessor(int fromIndex, int toIndex) {
-        this.fromIndex = fromIndex;
-        this.toIndex = toIndex;
-    }
-
-    @Override
-    public void copy(ExecutionScope fromScope, ExecutionScope toScope) {
-        toScope.shorts[toIndex] = fromScope.shorts[fromIndex];
-    }
+    Object evaluate(Object value);
 }

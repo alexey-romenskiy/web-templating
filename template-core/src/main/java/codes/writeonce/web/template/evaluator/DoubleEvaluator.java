@@ -16,20 +16,9 @@
  * License along with this library.
  */
 
-package codes.writeonce.web.template;
+package codes.writeonce.web.template.evaluator;
 
-import java.io.IOException;
+public interface DoubleEvaluator {
 
-public class TextOutput implements Output {
-
-    private final String text;
-
-    public TextOutput(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public void write(ExecutionScope scope, Appendable out) throws IOException {
-        out.append(text);
-    }
+    double evaluate(Object value);
 }
